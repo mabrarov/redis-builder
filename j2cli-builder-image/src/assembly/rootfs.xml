@@ -9,14 +9,13 @@
     <fileSets>
         <fileSet>
             <outputDirectory/>
-            <directory>src/main/resources/rootfs</directory>
-            <excludes>
-                <exclude>**/*.*</exclude>
-            </excludes>
+            <directory>${project.basedir}/src/main/resources/rootfs</directory>
             <includes>
-                <include>data</include>
+                <include>**/*.txt</include>
             </includes>
-            <directoryMode>0777</directoryMode>
+            <fileMode>0444</fileMode>
+            <lineEnding>unix</lineEnding>
+            <filtered>true</filtered>
         </fileSet>
     </fileSets>
 </assembly>

@@ -8,12 +8,11 @@
         <version>0.0.1</version>
     </parent>
 
-    <artifactId>redis-builder-image</artifactId>
+    <artifactId>helper-image</artifactId>
     <packaging>pom</packaging>
 
     <properties>
-        <docker.repository>${redis.builder.image.repository}</docker.repository>
-        <output.file>${redis.builder.output.file}</output.file>
+        <docker.repository>abrarov/redis-helper</docker.repository>
     </properties>
 
     <build>
@@ -23,16 +22,29 @@
                 <artifactId>download-maven-plugin</artifactId>
                 <executions>
                     <execution>
-                        <id>download-redis-source</id>
+                        <id>download-http-echo</id>
+                        <phase>generate-resources</phase>
                         <goals>
                             <goal>wget</goal>
                         </goals>
-                        <phase>generate-resources</phase>
                         <configuration>
-                            <url>https://github.com/redis/redis/archive/${redis.version}.tar.gz</url>
-                            <sha256>${redis.sha256}</sha256>
+                            <url>https://github.com/hashicorp/http-echo/releases/download/v${httpecho.version}/http-echo_${httpecho.version}_linux_amd64.tar.gz</url>
+                            <unpack>true</unpack>
                             <outputDirectory>${project.build.directory}</outputDirectory>
-                            <outputFileName>redis.tar.gz</outputFileName>
+                            <sha256>${httpecho.sha256}</sha256>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>download-dockerize</id>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>wget</goal>
+                        </goals>
+                        <configuration>
+                            <url>https://github.com/jwilder/dockerize/releases/download/v${dockerize.version}/dockerize-linux-amd64-v${dockerize.version}.tar.gz</url>
+                            <unpack>true</unpack>
+                            <outputDirectory>${project.build.directory}</outputDirectory>
+                            <sha256>${dockerize.sha256}</sha256>
                         </configuration>
                     </execution>
                 </executions>
@@ -41,6 +53,21 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-assembly-plugin</artifactId>
                 <executions>
+                    <execution>
+                        <id>build-rootfs</id>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                        <configuration>
+                            <finalName>rootfs</finalName>
+                            <appendAssemblyId>false</appendAssemblyId>
+                            <attach>false</attach>
+                            <descriptors>
+                                <descriptor>src/assembly/rootfs.xml</descriptor>
+                            </descriptors>
+                        </configuration>
+                    </execution>
                     <execution>
                         <id>build-docker-context</id>
                         <phase>generate-resources</phase>

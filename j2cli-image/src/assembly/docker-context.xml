@@ -16,22 +16,15 @@
             <filtered>true</filtered>
             <lineEnding>unix</lineEnding>
         </fileSet>
-        <fileSet>
-            <outputDirectory/>
-            <directory>${project.build.directory}</directory>
-            <includes>
-                <include>rootfs.tar</include>
-            </includes>
-        </fileSet>
     </fileSets>
     <dependencySets>
         <dependencySet>
             <outputDirectory/>
             <includes>
-                <include>io.fabric8.dmp.samples:redis-dist:tar.gz</include>
+                <include>io.fabric8.dmp.samples:j2cli-dist:tar.gz</include>
             </includes>
             <useProjectArtifact>false</useProjectArtifact>
-            <outputFileNameMapping>redis-dist.tar.gz</outputFileNameMapping>
+            <outputFileNameMapping>j2cli.tar.gz</outputFileNameMapping>
         </dependencySet>
     </dependencySets>
 </assembly>

@@ -8,7 +8,7 @@
         <version>0.0.1</version>
     </parent>
 
-    <artifactId>redis-dist</artifactId>
+    <artifactId>j2cli-dist</artifactId>
     <packaging>pom</packaging>
 
     <properties>
@@ -18,7 +18,7 @@
     <dependencies>
         <dependency>
             <groupId>io.fabric8.dmp.samples</groupId>
-            <artifactId>redis-builder-image</artifactId>
+            <artifactId>j2cli-builder-image</artifactId>
             <type>pom</type>
         </dependency>
     </dependencies>
@@ -38,7 +38,7 @@
                         <configuration>
                             <images>
                                 <image>
-                                    <name>${redis.builder.image.repository}:${project.version}</name>
+                                    <name>${j2cli.builder.image.repository}:${project.version}</name>
                                     <copy>
                                         <entries>
                                             <entry>

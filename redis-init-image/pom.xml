@@ -8,13 +8,20 @@
         <version>0.0.1</version>
     </parent>
 
-    <artifactId>redis-builder-image</artifactId>
+    <artifactId>redis-init-image</artifactId>
     <packaging>pom</packaging>
 
     <properties>
-        <docker.repository>${redis.builder.image.repository}</docker.repository>
-        <output.file>${redis.builder.output.file}</output.file>
+        <docker.repository>abrarov/redis-init</docker.repository>
     </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>io.fabric8.dmp.samples</groupId>
+            <artifactId>j2cli-image</artifactId>
+            <type>pom</type>
+        </dependency>
+    </dependencies>
 
     <build>
         <plugins>
@@ -23,16 +30,15 @@
                 <artifactId>download-maven-plugin</artifactId>
                 <executions>
                     <execution>
-                        <id>download-redis-source</id>
+                        <id>download-busybox</id>
+                        <phase>generate-resources</phase>
                         <goals>
                             <goal>wget</goal>
                         </goals>
-                        <phase>generate-resources</phase>
                         <configuration>
-                            <url>https://github.com/redis/redis/archive/${redis.version}.tar.gz</url>
-                            <sha256>${redis.sha256}</sha256>
-                            <outputDirectory>${project.build.directory}</outputDirectory>
-                            <outputFileName>redis.tar.gz</outputFileName>
+                            <url>https://busybox.net/downloads/binaries/${busybox.version}-defconfig-multiarch-musl/busybox-x86_64</url>
+                            <outputFileName>busybox</outputFileName>
+                            <sha256>${busybox.sha256}</sha256>
                         </configuration>
                     </execution>
                 </executions>
@@ -41,6 +47,21 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-assembly-plugin</artifactId>
                 <executions>
+                    <execution>
+                        <id>build-rootfs</id>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                        <configuration>
+                            <finalName>rootfs</finalName>
+                            <appendAssemblyId>false</appendAssemblyId>
+                            <attach>false</attach>
+                            <descriptors>
+                                <descriptor>src/assembly/rootfs.xml</descriptor>
+                            </descriptors>
+                        </configuration>
+                    </execution>
                     <execution>
                         <id>build-docker-context</id>
                         <phase>generate-resources</phase>
