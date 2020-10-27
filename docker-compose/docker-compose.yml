@@ -3,6 +3,7 @@ version: '2.1'
 services:
   helper:
     image: 'abrarov/redis-helper:0.0.1'
+    read_only: true
     volumes:
       - '/helper'
   init:
@@ -15,10 +16,12 @@ services:
       REDIS_LISTEN_BACKLOG: '128'
       REDIS_PROTECTED_MODE: 'no'
       REDIS_DATA_DIR: '/data'
+    read_only: true
+    volumes:
+      - '/tmp'
+      - '/config'
     volumes_from:
       - 'helper:ro'
-    volumes:
-      - '/config'
   redis:
     image: 'abrarov/redis:6.0.8-0.0.1'
     command:
@@ -29,6 +32,10 @@ services:
       - '60s'
       - 'redis-server'
       - '/config/redis.conf'
+    read_only: true
+    volumes:
+      - '/tmp'
+      - '/data'
     volumes_from:
       - 'helper:ro'
       - 'init:ro'

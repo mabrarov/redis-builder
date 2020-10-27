@@ -2,8 +2,6 @@ FROM gcr.io/distroless/cc-debian10
 
 ADD ["redis-dist.tar.gz", "/usr/local"]
 
-ADD ["rootfs.tar", "/"]
-
 CMD ["redis-server", "--version"]
 
 LABEL name="@docker.repository@" \
