@@ -45,7 +45,7 @@ mvnw.cmd clean package -Ddocker-maven-plugin.version=0.34-SNAPSHOT
    Redis server v=6.0.8 sha=00000000:0 malloc=libc bits=64 build=89228db3570a88e7
    ```
 
-1. Redis CLI
+1. [Redis CLI](https://github.com/redis/redis#playing-with-redis)
 
    ```bash
    container_id="$(docker run -d abrarov/redis:6.0.8-0.0.1 redis-server)" && \
