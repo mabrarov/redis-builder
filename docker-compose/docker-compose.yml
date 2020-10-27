@@ -11,6 +11,8 @@ services:
       - '/helper/run.sh'
     environment:
       INIT_COMMAND: '/run.sh'
+      REDIS_PORT: '6379'
+      REDIS_LISTEN_BACKLOG: '128'
       REDIS_PROTECTED_MODE: 'no'
       REDIS_DATA_DIR: '/data'
     volumes_from:
