@@ -1,8 +1,9 @@
-FROM gcr.io/distroless/cc-debian10
+FROM scratch
 
 ADD ["rootfs.tar", "/"]
 
-CMD ["redis-server", "--version"]
+# Call some statically linked application which exits with zero exit code
+CMD ["/helper/dockerize", "--version"]
 
 LABEL name="@docker.repository@" \
     version="@project.version@" \
@@ -10,5 +11,4 @@ LABEL name="@docker.repository@" \
     build-date="@git.commit.time@" \
     vcs-url="@git.remote.origin.url@" \
     vcs-type="git" \
-    vcs-ref="@git.commit.id@" \
-    redis-version="@redis.version@"
+    vcs-ref="@git.commit.id@"

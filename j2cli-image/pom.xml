@@ -8,35 +8,23 @@
         <version>0.0.1</version>
     </parent>
 
-    <artifactId>redis-builder-image</artifactId>
+    <artifactId>j2cli-image</artifactId>
     <packaging>pom</packaging>
 
     <properties>
-        <docker.repository>${redis.builder.image.repository}</docker.repository>
-        <output.file>${redis.builder.output.file}</output.file>
+        <docker.repository>abrarov/j2cli</docker.repository>
     </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>io.fabric8.dmp.samples</groupId>
+            <artifactId>j2cli-dist</artifactId>
+            <type>tar.gz</type>
+        </dependency>
+    </dependencies>
 
     <build>
         <plugins>
-            <plugin>
-                <groupId>com.googlecode.maven-download-plugin</groupId>
-                <artifactId>download-maven-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>download-redis-source</id>
-                        <goals>
-                            <goal>wget</goal>
-                        </goals>
-                        <phase>generate-resources</phase>
-                        <configuration>
-                            <url>https://github.com/redis/redis/archive/${redis.version}.tar.gz</url>
-                            <sha256>${redis.sha256}</sha256>
-                            <outputDirectory>${project.build.directory}</outputDirectory>
-                            <outputFileName>redis.tar.gz</outputFileName>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-assembly-plugin</artifactId>
@@ -76,7 +64,7 @@
                 <configuration>
                     <images>
                         <image>
-                            <name>${docker.repository}:${project.version}</name>
+                            <name>${docker.repository}:${j2cli.version}-${project.version}</name>
                             <build>
                                 <contextDir>${project.build.directory}/context</contextDir>
                                 <cleanup>${docker.cleanup}</cleanup>

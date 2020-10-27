@@ -13,8 +13,13 @@
 
     <modules>
         <module>redis-image</module>
+        <module>redis-init-image</module>
         <module>redis-dist</module>
         <module>redis-builder-image</module>
+        <module>helper-image</module>
+        <module>j2cli-dist</module>
+        <module>j2cli-image</module>
+        <module>j2cli-builder-image</module>
     </modules>
 
     <properties>
@@ -30,9 +35,20 @@
         <docker.cleanup>none</docker.cleanup>
         <redis.version>6.0.8</redis.version>
         <redis.sha256>1f192a0eb68ac19cb869c2512dc10c97e58b27bc464e2e74ae70c72cbe66bc08</redis.sha256>
-        <builder.image.repository>abrarov/redis-builder</builder.image.repository>
-        <builder.output.fileName>out.tar.gz</builder.output.fileName>
-        <builder.output.file>/${builder.output.fileName}</builder.output.file>
+        <busybox.version>1.31.0</busybox.version>
+        <busybox.sha256>51fcb60efbdf3e579550e9ab893730df56b33d0cc928a2a6467bd846cdfef7d8</busybox.sha256>
+        <httpecho.version>0.2.3</httpecho.version>
+        <httpecho.sha256>e30b29b72ad5ec1f6dfc8dee0c2fcd162f47127f2251b99e47b9ae8af1d7b917</httpecho.sha256>
+        <dockerize.version>0.6.1</dockerize.version>
+        <dockerize.sha256>1fa29cd41a5854fd5423e242f3ea9737a50a8c3bcf852c9e62b9eb02c6ccd370</dockerize.sha256>
+        <j2cli.version>0.3.10</j2cli.version>
+        <j2cli.venv.dir>/venv</j2cli.venv.dir>
+        <redis.builder.image.repository>abrarov/redis-builder</redis.builder.image.repository>
+        <redis.builder.output.fileName>out.tar.gz</redis.builder.output.fileName>
+        <redis.builder.output.file>/${redis.builder.output.fileName}</redis.builder.output.file>
+        <j2cli.builder.image.repository>abrarov/jinja-builder</j2cli.builder.image.repository>
+        <j2cli.builder.output.fileName>out.tar.gz</j2cli.builder.output.fileName>
+        <j2cli.builder.output.file>/${redis.builder.output.fileName}</j2cli.builder.output.file>
         <maven-enforcer-plugin.version>3.0.0-M3</maven-enforcer-plugin.version>
         <git-commit-id-plugin.version>4.0.2</git-commit-id-plugin.version>
         <maven-resources-plugin.version>3.1.0</maven-resources-plugin.version>
@@ -40,7 +56,7 @@
         <maven-dependency-plugin.version>3.1.2</maven-dependency-plugin.version>
         <maven-assembly-plugin.version>3.3.0</maven-assembly-plugin.version>
         <download-maven-plugin.version>1.6.0</download-maven-plugin.version>
-        <docker-maven-plugin.version>0.34</docker-maven-plugin.version>
+        <docker-maven-plugin.version>0.33.0</docker-maven-plugin.version>
     </properties>
 
     <dependencyManagement>
@@ -53,7 +69,25 @@
             </dependency>
             <dependency>
                 <groupId>io.fabric8.dmp.samples</groupId>
+                <artifactId>j2cli-builder-image</artifactId>
+                <version>${project.version}</version>
+                <type>pom</type>
+            </dependency>
+            <dependency>
+                <groupId>io.fabric8.dmp.samples</groupId>
+                <artifactId>j2cli-image</artifactId>
+                <version>${project.version}</version>
+                <type>pom</type>
+            </dependency>
+            <dependency>
+                <groupId>io.fabric8.dmp.samples</groupId>
                 <artifactId>redis-dist</artifactId>
+                <version>${project.version}</version>
+                <type>tar.gz</type>
+            </dependency>
+            <dependency>
+                <groupId>io.fabric8.dmp.samples</groupId>
+                <artifactId>j2cli-dist</artifactId>
                 <version>${project.version}</version>
                 <type>tar.gz</type>
             </dependency>

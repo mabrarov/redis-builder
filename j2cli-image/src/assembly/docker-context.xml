@@ -1,0 +1,30 @@
+<assembly xmlns="http://maven.apache.org/ASSEMBLY/2.1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/ASSEMBLY/2.1.0 http://maven.apache.org/xsd/assembly-2.1.0.xsd">
+    <id>docker-context</id>
+    <formats>
+        <format>dir</format>
+    </formats>
+    <includeBaseDirectory>false</includeBaseDirectory>
+    <fileSets>
+        <fileSet>
+            <outputDirectory/>
+            <directory>src/main/resources</directory>
+            <includes>
+                <include>Dockerfile</include>
+            </includes>
+            <filtered>true</filtered>
+            <lineEnding>unix</lineEnding>
+        </fileSet>
+    </fileSets>
+    <dependencySets>
+        <dependencySet>
+            <outputDirectory/>
+            <includes>
+                <include>io.fabric8.dmp.samples:j2cli-dist:tar.gz</include>
+            </includes>
+            <useProjectArtifact>false</useProjectArtifact>
+            <outputFileNameMapping>j2cli.tar.gz</outputFileNameMapping>
+        </dependencySet>
+    </dependencySets>
+</assembly>

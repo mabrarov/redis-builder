@@ -1,8 +1,10 @@
-FROM gcr.io/distroless/cc-debian10
+FROM gcr.io/distroless/python3-debian10
 
-ADD ["rootfs.tar", "/"]
+ADD ["j2cli.tar.gz", "/"]
 
-CMD ["redis-server", "--version"]
+ENTRYPOINT []
+
+CMD ["@j2cli.venv.dir@/bin/j2", "--version"]
 
 LABEL name="@docker.repository@" \
     version="@project.version@" \
@@ -11,4 +13,4 @@ LABEL name="@docker.repository@" \
     vcs-url="@git.remote.origin.url@" \
     vcs-type="git" \
     vcs-ref="@git.commit.id@" \
-    redis-version="@redis.version@"
+    j2cli-version="@j2cli.version@"
