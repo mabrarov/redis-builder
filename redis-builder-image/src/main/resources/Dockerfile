@@ -2,7 +2,6 @@ FROM debian:10-slim
 
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
-      ca-certificates \
       dpkg-dev \
       gcc \
       libc6-dev \
@@ -10,9 +9,9 @@ RUN apt-get update && \
       make && \
     rm -rf /var/lib/apt/lists/*
 
-ADD ["redis.tar.gz", "/opt"]
+ADD ["redis.tar.gz", "/usr/src"]
 
-RUN source_dir="/opt/redis-@redis.version@" && \
+RUN source_dir="/usr/src/redis-@redis.version@" && \
     make -C "${source_dir}" BUILD_TLS=yes MALLOC=libc all && \
     install_dir="$(mktemp -d)" && \
     make -C "${source_dir}" PREFIX="${install_dir}" install && \
