@@ -11,6 +11,8 @@ services:
       - '/helper/run.sh'
     environment:
       INIT_COMMAND: '/run.sh'
+      REDIS_PROTECTED_MODE: 'no'
+      REDIS_DATA_DIR: '/data'
     volumes_from:
       - 'helper:ro'
     volumes:

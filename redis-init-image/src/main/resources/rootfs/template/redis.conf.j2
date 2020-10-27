@@ -362,7 +362,7 @@ rdb-del-sync-files no
 # The Append Only File will also be created inside this directory.
 #
 # Note that you must specify a directory here, not a file name.
-dir ./
+dir {{ REDIS_DATA_DIR }}
 
 ################################# REPLICATION #################################
 
@@ -1086,7 +1086,7 @@ oom-score-adj-values 0 200 800
 #
 # Please check http://redis.io/topics/persistence for more information.
 
-appendonly no
+appendonly {{ REDIS_APPENDONLY }}
 
 # The name of the append only file (default: "appendonly.aof")
 

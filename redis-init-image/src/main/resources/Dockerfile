@@ -7,10 +7,12 @@ RUN ["/bin/busybox", "sh", "-c", "set -e && for cmd in $(/bin/busybox --list); d
 CMD ["/run.sh"]
 
 ENV REDIS_PORT="6379" \
-    REDIS_PROTECTED_MODE="no" \
+    REDIS_PROTECTED_MODE="yes" \
     REDIS_LISTEN_BACKLOG="511" \
     REDIS_LOG_LEVEL="notice" \
-    REDIS_SHOW_LOGO="yes"
+    REDIS_SHOW_LOGO="yes" \
+    REDIS_DATA_DIR="./" \
+    REDIS_APPENDONLY="no"
 
 LABEL name="@docker.repository@" \
     version="@project.version@" \
