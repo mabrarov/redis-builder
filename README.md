@@ -11,7 +11,7 @@ Builder of Docker image with [Redis](https://github.com/redis/redis) using
 1. Docker 1.12+
 1. If remote Docker instance is used then `DOCKER_HOST` environment variable should point to that
    engine and include the schema, like `tcp://docker-host:2375` instead of `docker-host:2375`.
-1. The current directory is directory where this repository is cloned.
+1. The current directory is a directory where this repository is cloned.
 1. docker-maven-plugin 0.34-SNAPSHOT from
    [copy_mojo](https://github.com/mabrarov/docker-maven-plugin/tree/copy_mojo) branch
    of [mabrarov/docker-maven-plugin](https://github.com/mabrarov/docker-maven-plugin) GitHub project
@@ -73,10 +73,12 @@ mvnw.cmd clean package -Ddocker-maven-plugin.version=0.34-SNAPSHOT
 
 ## Docker Compose
 
+Assuming the current directory is a directory where this repository is cloned.
+
 * Start
 
    ```bash
-   docker-compose -p redis -f docker-compose/docker-compose.yml up -d
+   docker-compose -p redis up -d
    ```
 
 * Test connection to Redis
@@ -91,20 +93,44 @@ mvnw.cmd clean package -Ddocker-maven-plugin.version=0.34-SNAPSHOT
    PONG
    ```
 
+* Put some data in Redis
+
+   ```bash
+   docker run --rm --network redis_default abrarov/redis:6.0.8-0.0.1 redis-cli -h redis set foo bar
+   ```
+
+   Expected output is:
+  
+   ```text
+   OK
+   ```
+
 * Stop without removal
 
    ```bash
-   docker-compose -p redis -f docker-compose/docker-compose.yml stop -t 120
+   docker-compose -p redis stop -t 120
    ```
 
 * Start stopped instances
 
    ```bash
-   docker-compose -p redis -f docker-compose/docker-compose.yml start
+   docker-compose -p redis start
+   ```
+
+* Test persistence of stored data
+
+   ```bash
+   docker run --rm --network redis_default abrarov/redis:6.0.8-0.0.1 redis-cli -h redis get foo
+   ```
+
+   Expected output is:
+  
+   ```text
+   bar
    ```
 
 * Stop immediately and remove
 
    ```bash
-   docker-compose -p redis -f docker-compose/docker-compose.yml down -v -t 0
+   docker-compose -p redis down -v -t 0
    ```
