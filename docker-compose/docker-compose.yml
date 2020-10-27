@@ -1,0 +1,32 @@
+version: '2.1'
+
+services:
+  helper:
+    image: 'abrarov/redis-helper:0.0.1'
+    volumes:
+      - '/helper'
+  init:
+    image: 'abrarov/redis-init:0.0.1'
+    command:
+      - '/helper/run.sh'
+    environment:
+      INIT_COMMAND: '/run.sh'
+    volumes_from:
+      - 'helper:ro'
+    volumes:
+      - '/config'
+  redis:
+    image: 'abrarov/redis:6.0.8-0.0.1'
+    command:
+      - '/helper/dockerize'
+      - '-wait'
+      - 'tcp://init:8080'
+      - '-timeout'
+      - '60s'
+      - 'redis-server'
+      - '/config/redis.conf'
+    volumes_from:
+      - 'helper:ro'
+      - 'init:ro'
+    ports:
+      - '6379:6379'

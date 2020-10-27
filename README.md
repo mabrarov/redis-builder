@@ -58,3 +58,29 @@ mvnw.cmd clean package -Ddocker-maven-plugin.version=0.34-SNAPSHOT
    ```text
    PONG
    ```
+
+## Docker Compose
+
+* Start
+
+   ```bash
+   docker-compose -f docker-compose/docker-compose.yml up -d
+   ```
+
+* Stop without removal
+
+   ```bash
+   docker-compose -f docker-compose/docker-compose.yml stop -t 120
+   ```
+
+* Start stopped instances
+
+   ```bash
+   docker-compose -f docker-compose/docker-compose.yml start
+   ```
+
+* Stop immediately and remove
+
+   ```bash
+   docker-compose -f docker-compose/docker-compose.yml down -v -t 0
+   ```
