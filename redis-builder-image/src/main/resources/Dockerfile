@@ -17,7 +17,7 @@ RUN source_dir="/usr/src/redis-@redis.version@" && \
     make -C "${source_dir}" PREFIX="${install_dir}" install && \
     output_file="@output.file@" && \
     mkdir -p "$(dirname "${output_file}")" && \
-    tar -C "${install_dir}" -czf "${output_file}" bin && \
+    tar -C "${install_dir}" -czf "${output_file}" . && \
     rm -rf "${install_dir}" && \
     rm -rf "${source_dir}" && \
     echo "Redis binaries location: @output.file@"

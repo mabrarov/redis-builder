@@ -16,7 +16,7 @@ RUN venv_dir="@j2cli.venv.dir@" && \
     "${venv_dir}/bin/pip" install --disable-pip-version-check -r /usr/src/requirements.txt && \
     output_file="@output.file@" && \
     mkdir -p "$(dirname "${output_file}")" && \
-    tar -C "$(dirname "${venv_dir}")" -czf "${output_file}" "$(basename "${venv_dir}")" && \
+    tar -C "${venv_dir}" -czf "${output_file}" . && \
     echo "Jinja binaries location: @output.file@"
 
 CMD ["/bin/cat", "@output.file@"]

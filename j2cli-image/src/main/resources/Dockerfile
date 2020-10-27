@@ -1,6 +1,6 @@
 FROM gcr.io/distroless/python3-debian10
 
-ADD ["j2cli.tar.gz", "/"]
+ADD ["j2cli.tar.gz", "@j2cli.venv.dir@"]
 
 ENTRYPOINT []
 

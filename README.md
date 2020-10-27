@@ -33,7 +33,7 @@ mvnw.cmd clean package -Ddocker-maven-plugin.version=0.34-SNAPSHOT
 
 ## Testing
 
-1. Version
+1. Redis version
 
    ```bash
    docker run --rm abrarov/redis:6.0.8-0.0.1
@@ -59,28 +59,52 @@ mvnw.cmd clean package -Ddocker-maven-plugin.version=0.34-SNAPSHOT
    PONG
    ```
 
+1. j2cli version
+
+   ```bash
+   docker run --rm abrarov/j2cli:0.3.10-0.0.1
+   ```
+
+   Expected output is:
+
+   ```text
+   j2cli 0.3.10, Jinja2 2.11.2
+   ```
+
 ## Docker Compose
 
 * Start
 
    ```bash
-   docker-compose -f docker-compose/docker-compose.yml up -d
+   docker-compose -p redis -f docker-compose/docker-compose.yml up -d
+   ```
+
+* Test connection to Redis
+
+   ```bash
+   docker run --rm --network redis_default abrarov/redis:6.0.8-0.0.1 redis-cli -h redis ping
+   ```
+
+   Expected output is:
+  
+   ```text
+   PONG
    ```
 
 * Stop without removal
 
    ```bash
-   docker-compose -f docker-compose/docker-compose.yml stop -t 120
+   docker-compose -p redis -f docker-compose/docker-compose.yml stop -t 120
    ```
 
 * Start stopped instances
 
    ```bash
-   docker-compose -f docker-compose/docker-compose.yml start
+   docker-compose -p redis -f docker-compose/docker-compose.yml start
    ```
 
 * Stop immediately and remove
 
    ```bash
-   docker-compose -f docker-compose/docker-compose.yml down -v -t 0
+   docker-compose -p redis -f docker-compose/docker-compose.yml down -v -t 0
    ```
