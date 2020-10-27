@@ -33,12 +33,28 @@ mvnw.cmd clean package -Ddocker-maven-plugin.version=0.34-SNAPSHOT
 
 ## Testing
 
-```bash
-docker run --rm abrarov/redis:6.0.8-0.0.1
-```
+1. Version
 
-Expected output is:
+   ```bash
+   docker run --rm abrarov/redis:6.0.8-0.0.1
+   ```
 
-```text
-Redis server v=6.0.8 sha=00000000:0 malloc=libc bits=64 build=89228db3570a88e7
-```
+   Expected output is:
+
+   ```text
+   Redis server v=6.0.8 sha=00000000:0 malloc=libc bits=64 build=89228db3570a88e7
+   ```
+
+1. Redis CLI
+
+   ```bash
+   container_id="$(docker run -d abrarov/redis:6.0.8-0.0.1 redis-server)" && \
+   docker exec -it "${container_id}" redis-cli ping && \
+   docker rm -fv "${container_id}" > /dev/null
+   ```
+
+   Expected output is:
+
+   ```text
+   PONG
+   ```
