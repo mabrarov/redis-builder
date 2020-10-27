@@ -32,6 +32,19 @@ services:
       - '60s'
       - 'redis-server'
       - '/config/redis.conf'
+    healthcheck:
+      test:
+        - 'CMD'
+        - 'redis-cli'
+        - '-h'
+        - '127.0.0.1'
+        - '-p'
+        - '6379'
+        - 'ping'
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 5s
     read_only: true
     volumes:
       - '/tmp'
