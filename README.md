@@ -93,7 +93,7 @@ Assuming the current directory is a directory where this repository is cloned.
    PONG
    ```
 
-* Put some data in Redis
+* Put some data into Redis
 
    ```bash
    docker run --rm --network redis_default abrarov/redis:6.0.8-0.0.1 redis-cli -h redis set foo bar
