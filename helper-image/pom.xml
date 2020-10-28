@@ -107,6 +107,7 @@
                             <build>
                                 <contextDir>${project.build.directory}/context</contextDir>
                                 <cleanup>${docker.cleanup}</cleanup>
+                                <filter>false</filter>
                             </build>
                         </image>
                     </images>
