@@ -12,7 +12,7 @@ RUN apt-get update && \
 ADD ["redis.tar.gz", "/usr/src"]
 
 RUN source_dir="/usr/src/redis-@redis.version@" && \
-    make -C "${source_dir}" BUILD_TLS=yes MALLOC=libc all && \
+    make -C "${source_dir}" BUILD_TLS=yes all && \
     install_dir="$(mktemp -d)" && \
     make -C "${source_dir}" PREFIX="${install_dir}" install && \
     output_file="@output.file@" && \
@@ -31,4 +31,5 @@ LABEL name="@docker.repository@" \
     build-date="@git.commit.time@" \
     vcs-url="@git.remote.origin.url@" \
     vcs-type="git" \
-    vcs-ref="@git.commit.id@"
+    vcs-ref="@git.commit.id@" \
+    redis-version="@redis.version@"

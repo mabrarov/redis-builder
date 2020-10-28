@@ -28,4 +28,5 @@ LABEL name="@docker.repository@" \
     build-date="@git.commit.time@" \
     vcs-url="@git.remote.origin.url@" \
     vcs-type="git" \
-    vcs-ref="@git.commit.id@"
+    vcs-ref="@git.commit.id@" \
+    j2cli-version="@j2cli.version@"

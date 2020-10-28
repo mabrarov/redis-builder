@@ -38,7 +38,7 @@
                         <configuration>
                             <images>
                                 <image>
-                                    <name>${j2cli.builder.image.repository}:${project.version}</name>
+                                    <name>${j2cli.builder.image.repository}:${j2cli.version}-${project.version}</name>
                                     <copy>
                                         <entries>
                                             <entry>

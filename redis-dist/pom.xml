@@ -38,7 +38,7 @@
                         <configuration>
                             <images>
                                 <image>
-                                    <name>${redis.builder.image.repository}:${project.version}</name>
+                                    <name>${redis.builder.image.repository}:${redis.version}-${project.version}</name>
                                     <copy>
                                         <entries>
                                             <entry>

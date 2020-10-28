@@ -76,7 +76,7 @@
                 <configuration>
                     <images>
                         <image>
-                            <name>${docker.repository}:${project.version}</name>
+                            <name>${docker.repository}:${redis.version}-${project.version}</name>
                             <build>
                                 <contextDir>${project.build.directory}/context</contextDir>
                                 <cleanup>${docker.cleanup}</cleanup>
