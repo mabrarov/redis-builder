@@ -8,8 +8,7 @@ services:
       - '/helper'
   init:
     image: 'abrarov/redis-init:0.0.1'
-    command:
-      - '/helper/run.sh'
+    command: '/helper/run.sh'
     environment:
       INIT_COMMAND: '/run.sh'
       REDIS_PORT: '6379'
