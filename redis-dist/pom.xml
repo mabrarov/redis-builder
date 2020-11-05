@@ -49,6 +49,7 @@
                                     </copy>
                                 </image>
                             </images>
+                            <createContainers>true</createContainers>
                         </configuration>
                     </execution>
                 </executions>
