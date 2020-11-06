@@ -17,7 +17,8 @@ RUN source_dir="/usr/src/redis-@redis.version@" && \
     output_file="@output.file@" && \
     mkdir -p "$(dirname "${output_file}")" && \
     ls -A -1 "${install_dir}" \
-      | tar -C "${install_dir}" -czf "${output_file}" --verbatim-files-from -T - && \
+      | tar --sort=name --owner=0:0 --group=0:0 --mtime='UTC 1970-01-01' \
+          -C "${install_dir}" -czf "${output_file}" --verbatim-files-from -T - && \
     rm -rf "${install_dir}" && \
     make -C "${source_dir}" distclean && \
     echo "Redis binaries location: ${output_file}"
