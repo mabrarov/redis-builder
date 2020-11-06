@@ -18,7 +18,7 @@ RUN venv_dir="@j2cli.venv.dir@" && \
     mkdir -p "$(dirname "${output_file}")" && \
     ls -A -1 "${venv_dir}" \
       | tar -C "${venv_dir}" -czf "${output_file}" --verbatim-files-from -T - && \
-    echo "Jinja binaries location: @output.file@"
+    echo "Jinja binaries location: ${output_file}"
 
 CMD ["/bin/cat", "@output.file@"]
 

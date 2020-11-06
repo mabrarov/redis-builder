@@ -2,7 +2,6 @@ FROM debian:10-slim
 
 RUN apt-get update && \
     apt-get install -y --no-install-suggests --no-install-recommends \
-      dpkg-dev \
       gcc \
       libc6-dev \
       libssl-dev \
@@ -21,7 +20,7 @@ RUN source_dir="/usr/src/redis-@redis.version@" && \
       | tar -C "${install_dir}" -czf "${output_file}" --verbatim-files-from -T - && \
     rm -rf "${install_dir}" && \
     make -C "${source_dir}" distclean && \
-    echo "Redis binaries location: @output.file@"
+    echo "Redis binaries location: ${output_file}"
 
 CMD ["/bin/cat", "@output.file@"]
 
