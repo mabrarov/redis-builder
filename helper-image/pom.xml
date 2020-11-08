@@ -12,7 +12,7 @@
     <packaging>pom</packaging>
 
     <properties>
-        <docker.repository>abrarov/redis-helper</docker.repository>
+        <docker.repository>${docker.image.registry}/redis-helper</docker.repository>
     </properties>
 
     <build>

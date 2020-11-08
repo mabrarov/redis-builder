@@ -12,7 +12,7 @@
     <packaging>pom</packaging>
 
     <properties>
-        <docker.repository>abrarov/j2cli</docker.repository>
+        <docker.repository>${docker.image.registry}/j2cli</docker.repository>
     </properties>
 
     <dependencies>

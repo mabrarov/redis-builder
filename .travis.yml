@@ -1,0 +1,46 @@
+language: 'java'
+
+cache:
+  directories:
+    - '${HOME}/.m2/repository'
+
+services:
+  - 'docker'
+
+env:
+  global:
+    - REDIS_VERSION: '6.0.9'
+    - REDIS_SHA256: '2819b6d9c56be1f25cd157b9cb6b7c2733edcb46f4f6bcb1b79cefe639a2853b'
+    - DOCKERHUB_USER: 'abrarov'
+    - MAVEN_WRAPPER: '0'
+    - RELEASE_JOB: '0'
+    - DOCKER_PUSH_RETRIES: '10'
+    - DOCKER_MAVEN_PLUGIN_VERSION: '0.34-dev'
+
+matrix:
+  include:
+    # OpenJDK 8
+    - dist: 'trusty'
+      jdk: 'openjdk8'
+      env:
+        - RELEASE_JOB: '1'
+    # OpenJDK 8 with Maven Wrapper
+    - dist: 'trusty'
+      jdk: 'openjdk8'
+      env:
+        - MAVEN_WRAPPER: '1'
+    # OpenJDK 11 with Maven Wrapper
+    - dist: 'bionic'
+      jdk: 'openjdk11'
+
+install: 'skip'
+
+script: 'bash travis/build.sh'
+
+deploy:
+  skip_cleanup: true
+  provider: 'script'
+  script: 'bash travis/push-docker-images.sh'
+  on:
+    branch: 'master'
+    condition: '${RELEASE_JOB} = 1'

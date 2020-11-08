@@ -1,5 +1,8 @@
 # Redis Docker Image Builder
 
+[![License](https://img.shields.io/github/license/mabrarov/redis-builder)](https://github.com/mabrarov/redis-builder/tree/master/LICENSE)
+[![Travis CI build status](https://travis-ci.org/mabrarov/redis-builder.svg?branch=master)](https://travis-ci.org/mabrarov/redis-builder)
+
 Builder of Docker image with [Redis](https://github.com/redis/redis) using
 ["Distroless" Docker Image](https://github.com/GoogleContainerTools/distroless) as a base image.
 
