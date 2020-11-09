@@ -47,7 +47,7 @@
         <redis.builder.image.repository>${docker.image.registry}/redis-builder</redis.builder.image.repository>
         <redis.builder.output.fileName>out.tar.gz</redis.builder.output.fileName>
         <redis.builder.output.file>/${redis.builder.output.fileName}</redis.builder.output.file>
-        <j2cli.builder.image.repository>${docker.image.registry}/jinja-builder</j2cli.builder.image.repository>
+        <j2cli.builder.image.repository>${docker.image.registry}/j2cli-builder</j2cli.builder.image.repository>
         <j2cli.builder.output.fileName>out.tar.gz</j2cli.builder.output.fileName>
         <j2cli.builder.output.file>/${redis.builder.output.fileName}</j2cli.builder.output.file>
         <maven-enforcer-plugin.version>3.0.0-M3</maven-enforcer-plugin.version>
