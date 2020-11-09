@@ -2,12 +2,12 @@ version: '2.1'
 
 services:
   helper:
-    image: 'abrarov/redis-helper:0.0.1'
+    image: 'abrarov/redis-helper:1.0.0'
     read_only: true
     volumes:
       - '/helper'
   init:
-    image: 'abrarov/redis-init:0.0.1'
+    image: 'abrarov/redis-init:1.0.0'
     command: '/helper/run.sh'
     environment:
       INIT_COMMAND: '/run.sh'
@@ -22,7 +22,7 @@ services:
     volumes_from:
       - 'helper:ro'
   redis:
-    image: 'abrarov/redis:6.0.9-0.0.1'
+    image: 'abrarov/redis:6.0.9-1.0.0'
     command:
       - '/helper/dockerize'
       - '-wait'
