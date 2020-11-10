@@ -76,7 +76,7 @@ test_images() {
   docker run --rm "${redis_image_name}"
 
   j2cli_image_name="${DOCKERHUB_USER}/j2cli:${J2CLI_VERSION}-${maven_project_version}"
-  echo "Running container created from ${redis_image_name} image"
+  echo "Running container created from ${j2cli_image_name} image"
   docker run --rm "${j2cli_image_name}"
 
   docker_compose_project_name="redis"
