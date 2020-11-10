@@ -9,29 +9,31 @@ build_maven_project() {
     build_cmd="${build_cmd:+${build_cmd} }mvn"
   fi
 
-  build_cmd="${build_cmd:+${build_cmd} }-s $(printf "%q" "${TRAVIS_BUILD_DIR}/travis/settings.xml")"
-  build_cmd="${build_cmd:+${build_cmd} }-f $(printf "%q" "${TRAVIS_BUILD_DIR}/pom.xml")"
-  build_cmd="${build_cmd:+${build_cmd} }--batch-mode package"
+  build_cmd="${build_cmd:+${build_cmd} }--settings $(printf "%q" "${TRAVIS_BUILD_DIR}/travis/settings.xml")"
+  build_cmd="${build_cmd:+${build_cmd} }--file $(printf "%q" "${TRAVIS_BUILD_DIR}/pom.xml")"
+  build_cmd="${build_cmd:+${build_cmd} }--batch-mode"
 
   if [[ "${DOCKER_MAVEN_PLUGIN_VERSION}" != "" ]]; then
-    build_cmd="${build_cmd:+${build_cmd} }-D docker-maven-plugin.version=$(printf "%q" "${DOCKER_MAVEN_PLUGIN_VERSION}")"
+    build_cmd="${build_cmd:+${build_cmd} }--define docker-maven-plugin.version=$(printf "%q" "${DOCKER_MAVEN_PLUGIN_VERSION}")"
   fi
 
   if [[ "${DOCKERHUB_USER}" != "" ]]; then
-    build_cmd="${build_cmd:+${build_cmd} }-D docker.image.registry=$(printf "%q" "${DOCKERHUB_USER}")"
+    build_cmd="${build_cmd:+${build_cmd} }--define docker.image.registry=$(printf "%q" "${DOCKERHUB_USER}")"
   fi
 
   if [[ "${REDIS_VERSION}" != "" ]]; then
-    build_cmd="${build_cmd:+${build_cmd} }-D redis.version=$(printf "%q" "${REDIS_VERSION}")"
+    build_cmd="${build_cmd:+${build_cmd} }--define redis.version=$(printf "%q" "${REDIS_VERSION}")"
   fi
 
   if [[ "${REDIS_SHA256}" != "" ]]; then
-    build_cmd="${build_cmd:+${build_cmd} }-D redis.sha256=$(printf "%q" "${REDIS_SHA256}")"
+    build_cmd="${build_cmd:+${build_cmd} }--define redis.sha256=$(printf "%q" "${REDIS_SHA256}")"
   fi
 
   if [[ "${J2CLI_VERSION}" != "" ]]; then
-    build_cmd="${build_cmd:+${build_cmd} }-D j2cli.version=$(printf "%q" "${J2CLI_VERSION}")"
+    build_cmd="${build_cmd:+${build_cmd} }--define j2cli.version=$(printf "%q" "${J2CLI_VERSION}")"
   fi
+
+  build_cmd="${build_cmd:+${build_cmd} }package"
 
   echo "Building with: ${build_cmd}"
   eval "${build_cmd}"
@@ -66,9 +68,13 @@ wait_for_healthy_container() {
 }
 
 test_images() {
-  maven_project_version="$(mvn -f "${TRAVIS_BUILD_DIR}/pom.xml" \
+  maven_project_version="$(mvn \
+    --settings "${TRAVIS_BUILD_DIR}/travis/settings.xml" \
+    --file "${TRAVIS_BUILD_DIR}/pom.xml" \
+    --batch-mode \
+    --non-recursive \
+    --define expression=project.version \
     org.apache.maven.plugins:maven-help-plugin:3.2.0:evaluate \
-    -D expression=project.version \
     | sed -n -e '/^\[.*\]/ !{ /^[0-9]/ { p; q } }')"
 
   redis_image_name="${DOCKERHUB_USER}/redis:${REDIS_VERSION}-${maven_project_version}"

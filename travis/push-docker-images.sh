@@ -25,7 +25,12 @@ travis_retry() {
 main() {
   travis_retry docker login -u "${DOCKERHUB_USER}" -p "${DOCKERHUB_PASSWORD}"
 
-  mvn -f "${TRAVIS_BUILD_DIR}/pom.xml" docker:push -D docker.push.retries="${DOCKER_PUSH_RETRIES}"
+  mvn --settings "${TRAVIS_BUILD_DIR}/travis/settings.xml" \
+    --file "${TRAVIS_BUILD_DIR}/pom.xml" \
+    --batch-mode \
+    --offline \
+    --define docker.push.retries="${DOCKER_PUSH_RETRIES}" \
+    docker:push
 }
 
 main "${@}"
