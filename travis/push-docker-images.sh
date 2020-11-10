@@ -28,7 +28,6 @@ main() {
   mvn --settings "${TRAVIS_BUILD_DIR}/travis/settings.xml" \
     --file "${TRAVIS_BUILD_DIR}/pom.xml" \
     --batch-mode \
-    --offline \
     --define docker.push.retries="${DOCKER_PUSH_RETRIES}" \
     docker:push
 }
