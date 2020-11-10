@@ -68,14 +68,17 @@ wait_for_healthy_container() {
 }
 
 test_images() {
-  maven_project_version="$(mvn \
-    --settings "${TRAVIS_BUILD_DIR}/travis/settings.xml" \
-    --file "${TRAVIS_BUILD_DIR}/pom.xml" \
-    --batch-mode \
-    --non-recursive \
-    --define expression=project.version \
-    org.apache.maven.plugins:maven-help-plugin:3.2.0:evaluate \
-    | sed -n -e '/^\[.*\]/ !{ /^[0-9]/ { p; q } }')"
+  if [[ "${MAVEN_WRAPPER}" -ne 0 ]]; then
+    project_version_cmd="${project_version_cmd:+${project_version_cmd} }$(printf "%q" "${TRAVIS_BUILD_DIR}/mvnw")"
+  else
+    project_version_cmd="${project_version_cmd:+${project_version_cmd} }mvn"
+  fi
+  project_version_cmd="${project_version_cmd:+${project_version_cmd} }--settings $(printf "%q" "${TRAVIS_BUILD_DIR}/travis/settings.xml")"
+  project_version_cmd="${project_version_cmd:+${project_version_cmd} }--file $(printf "%q" "${TRAVIS_BUILD_DIR}/pom.xml")"
+  project_version_cmd="${project_version_cmd:+${project_version_cmd} }--batch-mode --non-recursive"
+  project_version_cmd="${project_version_cmd:+${project_version_cmd} }--define expression=project.version"
+  project_version_cmd="${project_version_cmd:+${project_version_cmd} }org.apache.maven.plugins:maven-help-plugin:3.2.0:evaluate"
+  maven_project_version="$(eval "${project_version_cmd}" | sed -n -e '/^\[.*\]/ !{ /^[0-9]/ { p; q } }')"
 
   redis_image_name="${DOCKERHUB_USER}/redis:${REDIS_VERSION}-${maven_project_version}"
   echo "Running container created from ${redis_image_name} image"
