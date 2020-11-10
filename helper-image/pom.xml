@@ -5,14 +5,14 @@
     <parent>
         <groupId>io.fabric8.dmp.samples</groupId>
         <artifactId>redis-builder-parent</artifactId>
-        <version>0.0.1</version>
+        <version>1.0.0</version>
     </parent>
 
     <artifactId>helper-image</artifactId>
     <packaging>pom</packaging>
 
     <properties>
-        <docker.repository>abrarov/redis-helper</docker.repository>
+        <docker.repository>${docker.image.registry}/redis-helper</docker.repository>
     </properties>
 
     <build>

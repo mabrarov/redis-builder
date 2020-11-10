@@ -1,13 +1,15 @@
 version: '2.1'
 
 services:
+
   helper:
-    image: 'abrarov/redis-helper:0.0.1'
+    image: '${IMAGE_REGISTRY:-abrarov}/redis-helper:${PROJECT_VERSION:-1.0.0}'
     read_only: true
     volumes:
       - '/helper'
+
   init:
-    image: 'abrarov/redis-init:0.0.1'
+    image: '${IMAGE_REGISTRY:-abrarov}/redis-init:${PROJECT_VERSION:-1.0.0}'
     command: '/helper/run.sh'
     environment:
       INIT_COMMAND: '/run.sh'
@@ -21,8 +23,9 @@ services:
       - '/config'
     volumes_from:
       - 'helper:ro'
+
   redis:
-    image: 'abrarov/redis:6.0.9-0.0.1'
+    image: '${IMAGE_REGISTRY:-abrarov}/redis:${REDIS_VERSION:-6.0.9}-${PROJECT_VERSION:-1.0.0}'
     command:
       - '/helper/dockerize'
       - '-wait'
@@ -40,10 +43,9 @@ services:
         - '-p'
         - '6379'
         - 'ping'
-      interval: 30s
-      timeout: 5s
+      interval: '30s'
+      timeout: '5s'
       retries: 3
-      start_period: 5s
     read_only: true
     volumes:
       - '/tmp'

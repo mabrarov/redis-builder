@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>io.fabric8.dmp.samples</groupId>
     <artifactId>redis-builder-parent</artifactId>
-    <version>0.0.1</version>
+    <version>1.0.0</version>
     <packaging>pom</packaging>
 
     <scm>
@@ -43,10 +43,11 @@
         <dockerize.sha256>1fa29cd41a5854fd5423e242f3ea9737a50a8c3bcf852c9e62b9eb02c6ccd370</dockerize.sha256>
         <j2cli.version>0.3.10</j2cli.version>
         <j2cli.venv.dir>/venv</j2cli.venv.dir>
-        <redis.builder.image.repository>abrarov/redis-builder</redis.builder.image.repository>
+        <docker.image.registry>abrarov</docker.image.registry>
+        <redis.builder.image.repository>${docker.image.registry}/redis-builder</redis.builder.image.repository>
         <redis.builder.output.fileName>out.tar.gz</redis.builder.output.fileName>
         <redis.builder.output.file>/${redis.builder.output.fileName}</redis.builder.output.file>
-        <j2cli.builder.image.repository>abrarov/jinja-builder</j2cli.builder.image.repository>
+        <j2cli.builder.image.repository>${docker.image.registry}/j2cli-builder</j2cli.builder.image.repository>
         <j2cli.builder.output.fileName>out.tar.gz</j2cli.builder.output.fileName>
         <j2cli.builder.output.file>/${redis.builder.output.fileName}</j2cli.builder.output.file>
         <maven-enforcer-plugin.version>3.0.0-M3</maven-enforcer-plugin.version>
