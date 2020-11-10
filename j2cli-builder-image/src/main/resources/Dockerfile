@@ -10,10 +10,8 @@ RUN apt-get update && \
     "${venv_dir}/bin/pip" install --upgrade pip && \
     rm -rf /var/lib/apt/lists/*
 
-ADD ["rootfs.tar", "/"]
-
 RUN venv_dir="@j2cli.venv.dir@" && \
-    "${venv_dir}/bin/pip" install --disable-pip-version-check -r /usr/src/requirements.txt && \
+    "${venv_dir}/bin/pip" install --disable-pip-version-check j2cli[yaml]=="@j2cli.version@" && \
     output_file="@output.file@" && \
     mkdir -p "$(dirname "${output_file}")" && \
     ls -A -1 "${venv_dir}" \

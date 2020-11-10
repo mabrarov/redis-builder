@@ -16,12 +16,5 @@
             <filtered>true</filtered>
             <lineEnding>unix</lineEnding>
         </fileSet>
-        <fileSet>
-            <outputDirectory/>
-            <directory>${project.build.directory}</directory>
-            <includes>
-                <include>rootfs.tar</include>
-            </includes>
-        </fileSet>
     </fileSets>
 </assembly>
