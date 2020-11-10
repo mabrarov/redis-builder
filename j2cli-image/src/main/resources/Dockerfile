@@ -2,6 +2,8 @@ FROM gcr.io/distroless/python3-debian10
 
 ADD ["j2cli.tar.gz", "@j2cli.venv.dir@"]
 
+USER nonroot
+
 ENTRYPOINT []
 
 CMD ["@j2cli.venv.dir@/bin/j2", "--version"]
