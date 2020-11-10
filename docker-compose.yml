@@ -3,13 +3,13 @@ version: '2.1'
 services:
 
   helper:
-    image: '${IMAGE_REGISTRY:-abrarov}/redis-helper:${PROJECT_VERSION:-1.0.0}'
+    image: '${IMAGE_REGISTRY:-abrarov}/redis-helper:${PROJECT_VERSION:-1.0.1}'
     read_only: true
     volumes:
       - '/helper'
 
   init:
-    image: '${IMAGE_REGISTRY:-abrarov}/redis-init:${PROJECT_VERSION:-1.0.0}'
+    image: '${IMAGE_REGISTRY:-abrarov}/redis-init:${PROJECT_VERSION:-1.0.1}'
     command: '/helper/run.sh'
     environment:
       INIT_COMMAND: '/run.sh'
@@ -26,7 +26,7 @@ services:
       - 'helper:ro'
 
   redis:
-    image: '${IMAGE_REGISTRY:-abrarov}/redis:${REDIS_VERSION:-6.0.9}-${PROJECT_VERSION:-1.0.0}'
+    image: '${IMAGE_REGISTRY:-abrarov}/redis:${REDIS_VERSION:-6.0.9}-${PROJECT_VERSION:-1.0.1}'
     command:
       - '/helper/dockerize'
       - '-wait'

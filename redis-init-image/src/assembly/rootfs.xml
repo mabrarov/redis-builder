@@ -35,5 +35,21 @@
             <fileMode>0444</fileMode>
             <lineEnding>unix</lineEnding>
         </fileSet>
+        <!--
+            This file set adds directory TAR entry corresponding to the the following tree:
+            /
+            └─── config (0777)
+         -->
+        <fileSet>
+            <outputDirectory/>
+            <directory>src/main/resources/rootfs</directory>
+            <excludes>
+                <exclude>**/*.*</exclude>
+            </excludes>
+            <includes>
+                <include>config</include>
+            </includes>
+            <directoryMode>0777</directoryMode>
+        </fileSet>
     </fileSets>
 </assembly>

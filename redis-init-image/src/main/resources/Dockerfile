@@ -1,8 +1,12 @@
 FROM abrarov/j2cli:@j2cli.version@-@project.version@
 
+USER root
+
 ADD ["rootfs.tar", "/"]
 
 RUN ["/bin/busybox", "sh", "-c", "set -e && for cmd in $(/bin/busybox --list); do /bin/busybox ln -s /bin/busybox \"/usr/bin/${cmd}\"; done"]
+
+USER nonroot
 
 CMD ["/run.sh"]
 
