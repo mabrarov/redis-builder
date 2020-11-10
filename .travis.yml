@@ -33,7 +33,7 @@ matrix:
       jdk: 'openjdk8'
       env:
         - MAVEN_WRAPPER: '1'
-    # OpenJDK 11 with Maven Wrapper
+    # OpenJDK 11
     - dist: 'bionic'
       jdk: 'openjdk11'
 

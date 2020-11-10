@@ -2,20 +2,11 @@
 
 set -e
 
+source "${TRAVIS_BUILD_DIR}/travis/maven.sh"
+
 build_maven_project() {
-  if [[ "${MAVEN_WRAPPER}" -ne 0 ]]; then
-    build_cmd="${build_cmd:+${build_cmd} }$(printf "%q" "${TRAVIS_BUILD_DIR}/mvnw")"
-  else
-    build_cmd="${build_cmd:+${build_cmd} }mvn"
-  fi
-
-  build_cmd="${build_cmd:+${build_cmd} }--settings $(printf "%q" "${TRAVIS_BUILD_DIR}/travis/settings.xml")"
-  build_cmd="${build_cmd:+${build_cmd} }--file $(printf "%q" "${TRAVIS_BUILD_DIR}/pom.xml")"
+  build_cmd="$(maven_runner)$(maven_settings)$(maven_project_file)$(docker_maven_plugin_version)"
   build_cmd="${build_cmd:+${build_cmd} }--batch-mode"
-
-  if [[ "${DOCKER_MAVEN_PLUGIN_VERSION}" != "" ]]; then
-    build_cmd="${build_cmd:+${build_cmd} }--define docker-maven-plugin.version=$(printf "%q" "${DOCKER_MAVEN_PLUGIN_VERSION}")"
-  fi
 
   if [[ "${DOCKERHUB_USER}" != "" ]]; then
     build_cmd="${build_cmd:+${build_cmd} }--define docker.image.registry=$(printf "%q" "${DOCKERHUB_USER}")"
@@ -68,13 +59,7 @@ wait_for_healthy_container() {
 }
 
 test_images() {
-  if [[ "${MAVEN_WRAPPER}" -ne 0 ]]; then
-    project_version_cmd="${project_version_cmd:+${project_version_cmd} }$(printf "%q" "${TRAVIS_BUILD_DIR}/mvnw")"
-  else
-    project_version_cmd="${project_version_cmd:+${project_version_cmd} }mvn"
-  fi
-  project_version_cmd="${project_version_cmd:+${project_version_cmd} }--settings $(printf "%q" "${TRAVIS_BUILD_DIR}/travis/settings.xml")"
-  project_version_cmd="${project_version_cmd:+${project_version_cmd} }--file $(printf "%q" "${TRAVIS_BUILD_DIR}/pom.xml")"
+  project_version_cmd="$(maven_runner)$(maven_settings)$(maven_project_file)"
   project_version_cmd="${project_version_cmd:+${project_version_cmd} }--batch-mode --non-recursive"
   project_version_cmd="${project_version_cmd:+${project_version_cmd} }--define expression=project.version"
   project_version_cmd="${project_version_cmd:+${project_version_cmd} }org.apache.maven.plugins:maven-help-plugin:3.2.0:evaluate"

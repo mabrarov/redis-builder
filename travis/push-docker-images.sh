@@ -2,34 +2,19 @@
 
 set -e
 
-# Copied from https://github.com/travis-ci/travis-build/blob/master/lib/travis/build/bash/travis_retry.bash
-travis_retry() {
-  local result=0
-  local count=1
-  while [[ "${count}" -le 3 ]]; do
-    [[ "${result}" -ne 0 ]] && {
-      echo -e "\\n${ANSI_RED}The command \"${*}\" failed. Retrying, ${count} of 3.${ANSI_RESET}\\n" >&2
-    }
-    "${@}" && { result=0 && break; } || result="${?}"
-    count="$((count + 1))"
-    sleep 1
-  done
-
-  [[ "${count}" -gt 3 ]] && {
-    echo -e "\\n${ANSI_RED}The command \"${*}\" failed 3 times.${ANSI_RESET}\\n" >&2
-  }
-
-  return "${result}"
-}
+source "${TRAVIS_BUILD_DIR}/travis/maven.sh"
+source "${TRAVIS_BUILD_DIR}/travis/travis-retry.sh"
 
 main() {
   travis_retry docker login -u "${DOCKERHUB_USER}" -p "${DOCKERHUB_PASSWORD}"
 
-  mvn --settings "${TRAVIS_BUILD_DIR}/travis/settings.xml" \
-    --file "${TRAVIS_BUILD_DIR}/pom.xml" \
-    --batch-mode \
-    --define docker.push.retries="${DOCKER_PUSH_RETRIES}" \
-    docker:push
+  push_cmd="$(maven_runner)$(maven_settings)$(maven_project_file)$(docker_maven_plugin_version)"
+  push_cmd="${push_cmd:+${push_cmd} }--batch-mode"
+  push_cmd="${push_cmd:+${push_cmd} }--define docker.push.retries=$(printf "%q" "${DOCKER_PUSH_RETRIES}")"
+  push_cmd="${push_cmd:+${push_cmd} }docker:push"
+
+  echo "Pushing images with: ${push_cmd}"
+  eval "${push_cmd}"
 }
 
 main "${@}"
