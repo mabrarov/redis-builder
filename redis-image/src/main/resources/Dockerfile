@@ -2,7 +2,7 @@ FROM gcr.io/distroless/cc-debian10
 
 ADD ["redis-dist.tar.gz", "/usr/local"]
 
-ADD ["rootfs.tar", ""]
+ADD ["rootfs.tar", "/"]
 
 USER nonroot
 
