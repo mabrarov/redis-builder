@@ -88,7 +88,7 @@ protected-mode {{ REDIS_PROTECTED_MODE | quote_redis_conf_argument }}
 
 # Accept connections on the specified port, default is 6379 (IANA #815344).
 # If port 0 is specified Redis will not listen on a TCP socket.
-port 6379
+port {{ REDIS_PORT | quote_redis_conf_argument }}
 
 # TCP listen() backlog.
 #
