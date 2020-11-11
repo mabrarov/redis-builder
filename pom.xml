@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>io.fabric8.dmp.samples</groupId>
     <artifactId>redis-builder-parent</artifactId>
-    <version>1.0.2</version>
+    <version>1.0.3</version>
     <packaging>pom</packaging>
 
     <scm>
@@ -39,8 +39,8 @@
         <busybox.sha256>51fcb60efbdf3e579550e9ab893730df56b33d0cc928a2a6467bd846cdfef7d8</busybox.sha256>
         <httpecho.version>0.2.3</httpecho.version>
         <httpecho.sha256>e30b29b72ad5ec1f6dfc8dee0c2fcd162f47127f2251b99e47b9ae8af1d7b917</httpecho.sha256>
-        <dockerize.version>0.6.1</dockerize.version>
-        <dockerize.sha256>1fa29cd41a5854fd5423e242f3ea9737a50a8c3bcf852c9e62b9eb02c6ccd370</dockerize.sha256>
+        <dockerize.version>0.12.0</dockerize.version>
+        <dockerize.sha256>5c241e7ec35a205cd53250585282462636ebb894072a4b34283dc3d9b7c9be29</dockerize.sha256>
         <j2cli.version>0.3.10</j2cli.version>
         <j2cli.venv.dir>/venv</j2cli.venv.dir>
         <docker.image.registry>abrarov</docker.image.registry>

@@ -12,13 +12,13 @@ x-helper-dockerize: &helper-dockerize '/helper/dockerize'
 services:
 
   helper:
-    image: '${IMAGE_REGISTRY:-abrarov}/redis-helper:${PROJECT_VERSION:-1.0.2}'
+    image: '${IMAGE_REGISTRY:-abrarov}/redis-helper:${PROJECT_VERSION:-1.0.3}'
     read_only: true
     volumes:
       - *helper-dir
 
   init:
-    image: '${IMAGE_REGISTRY:-abrarov}/redis-init:${PROJECT_VERSION:-1.0.2}'
+    image: '${IMAGE_REGISTRY:-abrarov}/redis-init:${PROJECT_VERSION:-1.0.3}'
     command: *helper-wrapper-script
     environment:
       INIT_COMMAND: '/run.sh'
@@ -27,15 +27,13 @@ services:
       REDIS_LISTEN_BACKLOG: '128'
       REDIS_PROTECTED_MODE: 'no'
       REDIS_DATA_DIR: *redis-data-dir
-    read_only: true
     volumes:
-      - '/tmp'
       - *redis-conf-dir
     volumes_from:
       - 'helper:ro'
 
   redis:
-    image: '${IMAGE_REGISTRY:-abrarov}/redis:${REDIS_VERSION:-6.0.9}-${PROJECT_VERSION:-1.0.2}'
+    image: '${IMAGE_REGISTRY:-abrarov}/redis:${REDIS_VERSION:-6.0.9}-${PROJECT_VERSION:-1.0.3}'
     command:
       - *helper-dockerize
       - '-wait'
