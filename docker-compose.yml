@@ -1,40 +1,47 @@
 version: '2.1'
 
+x-redis-conf-dir: &redis-conf-dir '/config'
+x-redis-conf-file: &redis-conf-file '/config/redis.conf'
+x-redis-data-dir: &redis-data-dir '/data'
+x-helper-dir: &helper-dir '/helper'
+x-helper-wrapper-script: &helper-wrapper-script '/helper/run.sh'
+x-helper-dockerize: &helper-dockerize '/helper/dockerize'
+
 services:
 
   helper:
     image: '${IMAGE_REGISTRY:-abrarov}/redis-helper:${PROJECT_VERSION:-1.0.1}'
     read_only: true
     volumes:
-      - '/helper'
+      - *helper-dir
 
   init:
     image: '${IMAGE_REGISTRY:-abrarov}/redis-init:${PROJECT_VERSION:-1.0.1}'
-    command: '/helper/run.sh'
+    command: *helper-wrapper-script
     environment:
       INIT_COMMAND: '/run.sh'
-      REDIS_CONFIG_DIR: '/config'
+      REDIS_CONFIG_FILE: *redis-conf-file
       REDIS_PORT: '6379'
       REDIS_LISTEN_BACKLOG: '128'
       REDIS_PROTECTED_MODE: 'no'
-      REDIS_DATA_DIR: '/data'
+      REDIS_DATA_DIR: *redis-data-dir
     read_only: true
     volumes:
       - '/tmp'
-      - '/config'
+      - *redis-conf-dir
     volumes_from:
       - 'helper:ro'
 
   redis:
     image: '${IMAGE_REGISTRY:-abrarov}/redis:${REDIS_VERSION:-6.0.9}-${PROJECT_VERSION:-1.0.1}'
     command:
-      - '/helper/dockerize'
+      - *helper-dockerize
       - '-wait'
       - 'tcp://init:8080'
       - '-timeout'
       - '60s'
       - 'redis-server'
-      - '/config/redis.conf'
+      - *redis-conf-file
     healthcheck:
       test:
         - 'CMD'
@@ -50,7 +57,7 @@ services:
     read_only: true
     volumes:
       - '/tmp'
-      - '/data'
+      - *redis-data-dir
     volumes_from:
       - 'helper:ro'
       - 'init:ro'

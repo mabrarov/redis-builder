@@ -7,6 +7,22 @@
     </formats>
     <includeBaseDirectory>false</includeBaseDirectory>
     <fileSets>
+        <!--
+            This file set adds directory TAR entry corresponding to the the following tree:
+            /
+            └─── config (0777)
+         -->
+        <fileSet>
+            <outputDirectory/>
+            <directory>src/main/resources/rootfs</directory>
+            <excludes>
+                <exclude>**/*.*</exclude>
+            </excludes>
+            <includes>
+                <include>config</include>
+            </includes>
+            <directoryMode>0777</directoryMode>
+        </fileSet>
         <fileSet>
             <outputDirectory>bin</outputDirectory>
             <directory>${project.build.directory}</directory>
@@ -26,30 +42,14 @@
             <filtered>true</filtered>
         </fileSet>
         <fileSet>
-            <outputDirectory>template</outputDirectory>
-            <directory>src/main/resources/rootfs/template</directory>
-            <includes>
-                <include>*.j2</include>
-            </includes>
-            <directoryMode>0444</directoryMode>
-            <fileMode>0444</fileMode>
-            <lineEnding>unix</lineEnding>
-        </fileSet>
-        <!--
-            This file set adds directory TAR entry corresponding to the the following tree:
-            /
-            └─── config (0777)
-         -->
-        <fileSet>
             <outputDirectory/>
             <directory>src/main/resources/rootfs</directory>
-            <excludes>
-                <exclude>**/*.*</exclude>
-            </excludes>
             <includes>
-                <include>config</include>
+                <include>*.j2</include>
+                <include>*.py</include>
             </includes>
-            <directoryMode>0777</directoryMode>
+            <fileMode>0444</fileMode>
+            <lineEnding>unix</lineEnding>
         </fileSet>
     </fileSets>
 </assembly>
