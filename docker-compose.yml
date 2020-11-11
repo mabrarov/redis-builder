@@ -2,6 +2,8 @@ version: '2.1'
 
 x-redis-conf-dir: &redis-conf-dir '/config'
 x-redis-conf-file: &redis-conf-file '/config/redis.conf'
+x-redis-port: &redis-port '6379'
+x-redis-port-mapping: &redis-port-mapping '6379:6379'
 x-redis-data-dir: &redis-data-dir '/data'
 x-helper-dir: &helper-dir '/helper'
 x-helper-wrapper-script: &helper-wrapper-script '/helper/run.sh'
@@ -21,7 +23,7 @@ services:
     environment:
       INIT_COMMAND: '/run.sh'
       REDIS_CONFIG_FILE: *redis-conf-file
-      REDIS_PORT: '6379'
+      REDIS_PORT: *redis-port
       REDIS_LISTEN_BACKLOG: '128'
       REDIS_PROTECTED_MODE: 'no'
       REDIS_DATA_DIR: *redis-data-dir
@@ -49,7 +51,7 @@ services:
         - '-h'
         - '127.0.0.1'
         - '-p'
-        - '6379'
+        - *redis-port
         - 'ping'
       interval: '30s'
       timeout: '5s'
@@ -62,4 +64,4 @@ services:
       - 'helper:ro'
       - 'init:ro'
     ports:
-      - '6379:6379'
+      - *redis-port-mapping
