@@ -5,7 +5,7 @@
     <parent>
         <groupId>io.fabric8.dmp.samples</groupId>
         <artifactId>redis-builder-parent</artifactId>
-        <version>1.0.2</version>
+        <version>1.0.3</version>
     </parent>
 
     <artifactId>helper-image</artifactId>
@@ -41,9 +41,9 @@
                             <goal>wget</goal>
                         </goals>
                         <configuration>
-                            <url>https://github.com/jwilder/dockerize/releases/download/v${dockerize.version}/dockerize-linux-amd64-v${dockerize.version}.tar.gz</url>
-                            <unpack>true</unpack>
+                            <url>https://github.com/powerman/dockerize/releases/download/v${dockerize.version}/dockerize-linux-x86_64</url>
                             <outputDirectory>${project.build.directory}</outputDirectory>
+                            <outputFileName>dockerize</outputFileName>
                             <sha256>${dockerize.sha256}</sha256>
                         </configuration>
                     </execution>
