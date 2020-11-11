@@ -27,9 +27,7 @@ services:
       REDIS_LISTEN_BACKLOG: '128'
       REDIS_PROTECTED_MODE: 'no'
       REDIS_DATA_DIR: *redis-data-dir
-    read_only: true
     volumes:
-      - '/tmp'
       - *redis-conf-dir
     volumes_from:
       - 'helper:ro'
