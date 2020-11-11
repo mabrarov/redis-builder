@@ -20,6 +20,7 @@ Builder of Docker image with [Redis](https://github.com/redis/redis) using
    [copy_mojo](https://github.com/mabrarov/docker-maven-plugin/tree/copy_mojo) branch
    of [mabrarov/docker-maven-plugin](https://github.com/mabrarov/docker-maven-plugin) GitHub project
    is built and installed into the local Maven repository.
+   Refer to [docker-maven-plugin issue #752](https://github.com/fabric8io/docker-maven-plugin/issues/752) for details.
 
 ### Building Steps
 
