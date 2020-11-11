@@ -84,7 +84,7 @@ bind 0.0.0.0
 # you are sure you want clients from other hosts to connect to Redis
 # even if no authentication is configured, nor a specific set of interfaces
 # are explicitly listed using the "bind" directive.
-protected-mode {{ REDIS_PROTECTED_MODE }}
+protected-mode {{ REDIS_PROTECTED_MODE | quote_redis_conf_argument }}
 
 # Accept connections on the specified port, default is 6379 (IANA #815344).
 # If port 0 is specified Redis will not listen on a TCP socket.
@@ -97,7 +97,7 @@ port 6379
 # will silently truncate it to the value of /proc/sys/net/core/somaxconn so
 # make sure to raise both the value of somaxconn and tcp_max_syn_backlog
 # in order to get the desired effect.
-tcp-backlog {{ REDIS_LISTEN_BACKLOG }}
+tcp-backlog {{ REDIS_LISTEN_BACKLOG | quote_redis_conf_argument }}
 
 # Unix socket.
 #
@@ -252,7 +252,7 @@ pidfile /var/run/redis_6379.pid
 # verbose (many rarely useful info, but not a mess like the debug level)
 # notice (moderately verbose, what you want in production probably)
 # warning (only very important / critical messages are logged)
-loglevel {{ REDIS_LOG_LEVEL }}
+loglevel {{ REDIS_LOG_LEVEL | quote_redis_conf_argument }}
 
 # Specify the log file name. Also the empty string can be used to force
 # Redis to log on the standard output. Note that if you use standard
@@ -280,7 +280,7 @@ databases 16
 #
 # However it is possible to force the pre-4.0 behavior and always show a
 # ASCII art logo in startup logs by setting the following option to yes.
-always-show-logo {{ REDIS_SHOW_LOGO }}
+always-show-logo {{ REDIS_SHOW_LOGO | quote_redis_conf_argument }}
 
 ################################ SNAPSHOTTING  ################################
 #
@@ -362,7 +362,7 @@ rdb-del-sync-files no
 # The Append Only File will also be created inside this directory.
 #
 # Note that you must specify a directory here, not a file name.
-dir {{ REDIS_DATA_DIR }}
+dir {{ REDIS_DATA_DIR | quote_redis_conf_argument }}
 
 ################################# REPLICATION #################################
 
@@ -1086,7 +1086,7 @@ oom-score-adj-values 0 200 800
 #
 # Please check http://redis.io/topics/persistence for more information.
 
-appendonly {{ REDIS_APPENDONLY }}
+appendonly {{ REDIS_APPENDONLY | quote_redis_conf_argument }}
 
 # The name of the append only file (default: "appendonly.aof")
 
