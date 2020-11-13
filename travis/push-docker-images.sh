@@ -2,7 +2,9 @@
 
 set -e
 
+# shellcheck source=maven.sh
 source "${TRAVIS_BUILD_DIR}/travis/maven.sh"
+# shellcheck source=travis-retry.sh
 source "${TRAVIS_BUILD_DIR}/travis/travis-retry.sh"
 
 main() {
