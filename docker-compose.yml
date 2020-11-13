@@ -1,6 +1,7 @@
 version: '2.1'
 
-x-redis-conf-dir: &redis-conf-dir '/config'
+x-redis-conf-producer-volume: &redis-conf-producer-volume 'redis-config:/config:rw'
+x-redis-conf-consumer-volume: &redis-conf-consumer-volume 'redis-config:/config:ro'
 x-redis-conf-file: &redis-conf-file '/config/redis.conf'
 x-redis-port: &redis-port '6379'
 x-redis-port-mapping: &redis-port-mapping '6379:6379'
@@ -9,16 +10,18 @@ x-helper-dir: &helper-dir '/helper'
 x-helper-wrapper-script: &helper-wrapper-script '/helper/run.sh'
 x-helper-dockerize: &helper-dockerize '/helper/dockerize'
 
-services:
+volumes:
+  redis-config:
 
+services:
   helper:
-    image: '${IMAGE_REGISTRY:-abrarov}/redis-helper:${PROJECT_VERSION:-1.0.3}'
+    image: '${IMAGE_REGISTRY:-abrarov}/redis-helper:${PROJECT_VERSION:-1.0.4}'
     read_only: true
     volumes:
       - *helper-dir
 
   init:
-    image: '${IMAGE_REGISTRY:-abrarov}/redis-init:${PROJECT_VERSION:-1.0.3}'
+    image: '${IMAGE_REGISTRY:-abrarov}/redis-init:${PROJECT_VERSION:-1.0.4}'
     command: *helper-wrapper-script
     environment:
       INIT_COMMAND: '/run.sh'
@@ -27,13 +30,15 @@ services:
       REDIS_LISTEN_BACKLOG: '128'
       REDIS_PROTECTED_MODE: 'no'
       REDIS_DATA_DIR: *redis-data-dir
+    read_only: true
     volumes:
-      - *redis-conf-dir
+      - '/tmp'
+      - *redis-conf-producer-volume
     volumes_from:
       - 'helper:ro'
 
   redis:
-    image: '${IMAGE_REGISTRY:-abrarov}/redis:${REDIS_VERSION:-6.0.9}-${PROJECT_VERSION:-1.0.3}'
+    image: '${IMAGE_REGISTRY:-abrarov}/redis:${REDIS_VERSION:-6.0.9}-${PROJECT_VERSION:-1.0.4}'
     command:
       - *helper-dockerize
       - '-wait'
@@ -57,9 +62,9 @@ services:
     read_only: true
     volumes:
       - '/tmp'
+      - *redis-conf-consumer-volume
       - *redis-data-dir
     volumes_from:
       - 'helper:ro'
-      - 'init:ro'
     ports:
       - *redis-port-mapping
