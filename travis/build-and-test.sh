@@ -2,6 +2,7 @@
 
 set -e
 
+# shellcheck source=maven.sh
 source "${TRAVIS_BUILD_DIR}/travis/maven.sh"
 
 build_maven_project() {
