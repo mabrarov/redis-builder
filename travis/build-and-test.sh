@@ -9,19 +9,19 @@ build_maven_project() {
   build_cmd="$(maven_runner)$(maven_settings)$(maven_project_file)$(docker_maven_plugin_version)"
   build_cmd="${build_cmd:+${build_cmd} }--batch-mode"
 
-  if [[ "${DOCKERHUB_USER}" != "" ]]; then
+  if [[ -n "${DOCKERHUB_USER}" ]]; then
     build_cmd="${build_cmd:+${build_cmd} }--define docker.image.registry=$(printf "%q" "${DOCKERHUB_USER}")"
   fi
 
-  if [[ "${REDIS_VERSION}" != "" ]]; then
+  if [[ -n "${REDIS_VERSION}" ]]; then
     build_cmd="${build_cmd:+${build_cmd} }--define redis.version=$(printf "%q" "${REDIS_VERSION}")"
   fi
 
-  if [[ "${REDIS_SHA256}" != "" ]]; then
+  if [[ -n "${REDIS_SHA256}" ]]; then
     build_cmd="${build_cmd:+${build_cmd} }--define redis.sha256=$(printf "%q" "${REDIS_SHA256}")"
   fi
 
-  if [[ "${J2CLI_VERSION}" != "" ]]; then
+  if [[ -n "${J2CLI_VERSION}" ]]; then
     build_cmd="${build_cmd:+${build_cmd} }--define j2cli.version=$(printf "%q" "${J2CLI_VERSION}")"
   fi
 

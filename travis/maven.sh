@@ -20,7 +20,7 @@ maven_project_file() {
 }
 
 docker_maven_plugin_version() {
-  if [[ "${DOCKER_MAVEN_PLUGIN_VERSION}" != "" ]]; then
+  if [[ -n "${DOCKER_MAVEN_PLUGIN_VERSION}" ]]; then
     printf " %s%q" "--define docker-maven-plugin.version=" "${DOCKER_MAVEN_PLUGIN_VERSION}"
   fi
 }
