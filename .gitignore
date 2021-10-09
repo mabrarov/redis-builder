@@ -2,5 +2,8 @@
 target/
 
 # IntelliJ IDEA stuff
-.idea/
+/.idea/
 *.iml
+
+# Maven Wrapper
+/.mvn/wrapper/*.jar
