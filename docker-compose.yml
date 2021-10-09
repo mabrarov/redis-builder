@@ -38,7 +38,7 @@ services:
       - 'helper:ro'
 
   redis:
-    image: '${IMAGE_REGISTRY:-abrarov}/redis:${REDIS_VERSION:-6.2.1}-${PROJECT_VERSION:-1.1.0}'
+    image: '${IMAGE_REGISTRY:-abrarov}/redis:${REDIS_VERSION:-6.2.6}-${PROJECT_VERSION:-1.1.0}'
     command:
       - *helper-dockerize
       - '-wait'

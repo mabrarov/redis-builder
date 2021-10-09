@@ -33,8 +33,8 @@
         <maven.compiler.target>1.8</maven.compiler.target>
         <docker.verbose>true</docker.verbose>
         <docker.cleanup>none</docker.cleanup>
-        <redis.version>6.2.1</redis.version>
-        <redis.sha256>40a9139fd84b1a3956a2b501aa74261dfa1834420f83e68dd0e40ad5bd5974da</redis.sha256>
+        <redis.version>6.2.6</redis.version>
+        <redis.sha256>5d452038e346b5f31d7d277a41a4ec583bc8bf04403db620403638f79bdda891</redis.sha256>
         <busybox.version>1.31.0</busybox.version>
         <busybox.sha256>51fcb60efbdf3e579550e9ab893730df56b33d0cc928a2a6467bd846cdfef7d8</busybox.sha256>
         <httpecho.version>0.2.3</httpecho.version>
