@@ -50,14 +50,14 @@
         <j2cli.builder.image.repository>${docker.image.registry}/j2cli-builder</j2cli.builder.image.repository>
         <j2cli.builder.output.fileName>out.tar.gz</j2cli.builder.output.fileName>
         <j2cli.builder.output.file>/${redis.builder.output.fileName}</j2cli.builder.output.file>
-        <maven-enforcer-plugin.version>3.0.0-M3</maven-enforcer-plugin.version>
-        <git-commit-id-plugin.version>4.0.2</git-commit-id-plugin.version>
-        <maven-resources-plugin.version>3.1.0</maven-resources-plugin.version>
+        <maven-enforcer-plugin.version>3.0.0</maven-enforcer-plugin.version>
+        <git-commit-id-plugin.version>4.9.10</git-commit-id-plugin.version>
+        <maven-resources-plugin.version>3.2.0</maven-resources-plugin.version>
         <build-helper-maven-plugin.version>3.2.0</build-helper-maven-plugin.version>
-        <maven-dependency-plugin.version>3.1.2</maven-dependency-plugin.version>
+        <maven-dependency-plugin.version>3.2.0</maven-dependency-plugin.version>
         <maven-assembly-plugin.version>3.3.0</maven-assembly-plugin.version>
-        <download-maven-plugin.version>1.6.0</download-maven-plugin.version>
-        <docker-maven-plugin.version>0.35.0</docker-maven-plugin.version>
+        <download-maven-plugin.version>1.6.7</download-maven-plugin.version>
+        <docker-maven-plugin.version>0.37.0</docker-maven-plugin.version>
     </properties>
 
     <dependencyManagement>
