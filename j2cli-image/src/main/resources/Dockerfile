@@ -1,4 +1,4 @@
-FROM gcr.io/distroless/python3-debian10
+FROM gcr.io/distroless/python3-debian11
 
 ADD ["j2cli.tar.gz", "@j2cli.venv.dir@"]
 

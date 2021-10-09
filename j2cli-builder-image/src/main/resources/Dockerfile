@@ -1,4 +1,6 @@
-FROM debian:10-slim
+FROM debian:11-slim
+
+ENV TZ="Europe/Moscow"
 
 RUN apt-get update && \
     apt-get install -y --no-install-suggests --no-install-recommends \

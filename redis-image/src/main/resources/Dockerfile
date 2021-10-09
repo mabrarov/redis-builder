@@ -1,4 +1,4 @@
-FROM gcr.io/distroless/cc-debian10
+FROM gcr.io/distroless/cc-debian11
 
 ADD ["redis-dist.tar.gz", "/usr/local"]
 

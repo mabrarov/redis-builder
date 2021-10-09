@@ -12,7 +12,7 @@ Builder of Docker image with [Redis](https://github.com/redis/redis) using
 ### Building Requirements
 
 1. JDK 1.8+
-1. Docker 1.12+
+1. Docker 19.03.12+
 1. If remote Docker instance is used then `DOCKER_HOST` environment variable should point to that
    engine and include the schema, like `tcp://docker-host:2375` instead of `docker-host:2375`.
 1. The current directory is a directory where this repository is cloned.
