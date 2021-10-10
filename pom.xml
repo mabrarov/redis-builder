@@ -33,14 +33,14 @@
         <maven.compiler.target>1.8</maven.compiler.target>
         <docker.verbose>true</docker.verbose>
         <docker.cleanup>none</docker.cleanup>
-        <redis.version>6.2.1</redis.version>
-        <redis.sha256>40a9139fd84b1a3956a2b501aa74261dfa1834420f83e68dd0e40ad5bd5974da</redis.sha256>
+        <redis.version>6.2.6</redis.version>
+        <redis.sha256>5d452038e346b5f31d7d277a41a4ec583bc8bf04403db620403638f79bdda891</redis.sha256>
         <busybox.version>1.31.0</busybox.version>
         <busybox.sha256>51fcb60efbdf3e579550e9ab893730df56b33d0cc928a2a6467bd846cdfef7d8</busybox.sha256>
         <httpecho.version>0.2.3</httpecho.version>
         <httpecho.sha256>e30b29b72ad5ec1f6dfc8dee0c2fcd162f47127f2251b99e47b9ae8af1d7b917</httpecho.sha256>
-        <dockerize.version>0.12.0</dockerize.version>
-        <dockerize.sha256>5c241e7ec35a205cd53250585282462636ebb894072a4b34283dc3d9b7c9be29</dockerize.sha256>
+        <dockerize.version>0.15.1</dockerize.version>
+        <dockerize.sha256>189ac6a529464e33cd430d19247997552d231557a977823f242686d4b6d43722</dockerize.sha256>
         <j2cli.version>0.3.10</j2cli.version>
         <j2cli.venv.dir>/venv</j2cli.venv.dir>
         <docker.image.registry>abrarov</docker.image.registry>
@@ -50,14 +50,14 @@
         <j2cli.builder.image.repository>${docker.image.registry}/j2cli-builder</j2cli.builder.image.repository>
         <j2cli.builder.output.fileName>out.tar.gz</j2cli.builder.output.fileName>
         <j2cli.builder.output.file>/${redis.builder.output.fileName}</j2cli.builder.output.file>
-        <maven-enforcer-plugin.version>3.0.0-M3</maven-enforcer-plugin.version>
-        <git-commit-id-plugin.version>4.0.2</git-commit-id-plugin.version>
-        <maven-resources-plugin.version>3.1.0</maven-resources-plugin.version>
+        <maven-enforcer-plugin.version>3.0.0</maven-enforcer-plugin.version>
+        <git-commit-id-plugin.version>4.9.10</git-commit-id-plugin.version>
+        <maven-resources-plugin.version>3.2.0</maven-resources-plugin.version>
         <build-helper-maven-plugin.version>3.2.0</build-helper-maven-plugin.version>
-        <maven-dependency-plugin.version>3.1.2</maven-dependency-plugin.version>
+        <maven-dependency-plugin.version>3.2.0</maven-dependency-plugin.version>
         <maven-assembly-plugin.version>3.3.0</maven-assembly-plugin.version>
-        <download-maven-plugin.version>1.6.0</download-maven-plugin.version>
-        <docker-maven-plugin.version>0.35.0</docker-maven-plugin.version>
+        <download-maven-plugin.version>1.6.7</download-maven-plugin.version>
+        <docker-maven-plugin.version>0.37.0</docker-maven-plugin.version>
     </properties>
 
     <dependencyManagement>
