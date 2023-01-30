@@ -5,7 +5,7 @@
     <parent>
         <groupId>io.fabric8.dmp.samples</groupId>
         <artifactId>redis-builder-parent</artifactId>
-        <version>1.1.0</version>
+        <version>1.2.0</version>
     </parent>
 
     <artifactId>j2cli-dist</artifactId>
@@ -13,6 +13,7 @@
 
     <properties>
         <artifact.file>${project.build.directory}/${redis.builder.output.fileName}</artifact.file>
+        <docker.containerNamePattern>%e</docker.containerNamePattern>
     </properties>
 
     <dependencies>

@@ -36,7 +36,7 @@ mvnw.cmd clean package
 1. Redis version
 
    ```bash
-   docker run --rm abrarov/redis:6.2.6-1.1.0
+   docker run --rm abrarov/redis:6.2.6-1.2.0
    ```
 
    Expected output looks like:
@@ -48,7 +48,7 @@ mvnw.cmd clean package
 1. [Redis CLI](https://github.com/redis/redis#playing-with-redis)
 
    ```bash
-   container_id="$(docker run -d abrarov/redis:6.2.6-1.1.0 redis-server)" && \
+   container_id="$(docker run -d abrarov/redis:6.2.6-1.2.0 redis-server)" && \
    docker exec "${container_id}" redis-cli ping && \
    docker rm -fv "${container_id}" > /dev/null
    ```
@@ -62,7 +62,7 @@ mvnw.cmd clean package
 1. j2cli version
 
    ```bash
-   docker run --rm abrarov/j2cli:0.3.10-1.1.0
+   docker run --rm abrarov/j2cli:0.3.10-1.2.0
    ```
 
    Expected output is:
@@ -84,7 +84,7 @@ Assuming the current directory is a directory where this repository is cloned.
 * Test connection to Redis
 
    ```bash
-   docker run --rm --network redis_default abrarov/redis:6.2.6-1.1.0 redis-cli -h redis ping
+   docker run --rm --network redis_default abrarov/redis:6.2.6-1.2.0 redis-cli -h redis ping
    ```
 
    Expected output is:
@@ -96,7 +96,7 @@ Assuming the current directory is a directory where this repository is cloned.
 * Put some data into Redis
 
    ```bash
-   docker run --rm --network redis_default abrarov/redis:6.2.6-1.1.0 redis-cli -h redis set foo bar
+   docker run --rm --network redis_default abrarov/redis:6.2.6-1.2.0 redis-cli -h redis set foo bar
    ```
 
    Expected output is:
@@ -120,7 +120,7 @@ Assuming the current directory is a directory where this repository is cloned.
 * Test persistence of stored data
 
    ```bash
-   docker run --rm --network redis_default abrarov/redis:6.2.6-1.1.0 redis-cli -h redis get foo
+   docker run --rm --network redis_default abrarov/redis:6.2.6-1.2.0 redis-cli -h redis get foo
    ```
 
    Expected output is:
