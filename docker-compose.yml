@@ -15,13 +15,13 @@ volumes:
 
 services:
   helper:
-    image: '${IMAGE_REGISTRY:-abrarov}/redis-helper:${PROJECT_VERSION:-1.1.0}'
+    image: '${IMAGE_REGISTRY:-abrarov}/redis-helper:${PROJECT_VERSION:-1.2.0}'
     read_only: true
     volumes:
       - *helper-dir
 
   init:
-    image: '${IMAGE_REGISTRY:-abrarov}/redis-init:${PROJECT_VERSION:-1.1.0}'
+    image: '${IMAGE_REGISTRY:-abrarov}/redis-init:${PROJECT_VERSION:-1.2.0}'
     command: *helper-wrapper-script
     environment:
       INIT_COMMAND: '/run.sh'
@@ -38,7 +38,7 @@ services:
       - 'helper:ro'
 
   redis:
-    image: '${IMAGE_REGISTRY:-abrarov}/redis:${REDIS_VERSION:-6.2.6}-${PROJECT_VERSION:-1.1.0}'
+    image: '${IMAGE_REGISTRY:-abrarov}/redis:${REDIS_VERSION:-6.2.6}-${PROJECT_VERSION:-1.2.0}'
     command:
       - *helper-dockerize
       - '-wait'
