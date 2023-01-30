@@ -13,6 +13,7 @@
 
     <properties>
         <artifact.file>${project.build.directory}/${redis.builder.output.fileName}</artifact.file>
+        <docker.containerNamePattern>%e</docker.containerNamePattern>
     </properties>
 
     <dependencies>
